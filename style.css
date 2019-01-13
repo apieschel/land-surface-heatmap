@@ -6,6 +6,26 @@ body {
 }
 
 h1 {
-  font-style: italic;
-  color: #373fff;
+  text-align: center;
+}
+
+.container {
+  display: flex; 
+  justify-content:center;
+  margin-top: 20px;
+}
+
+.dot:hover {
+  fill: yellow;
+}
+
+.tooltip {
+    position: absolute;			
+    width: 200px;					
+    height: auto;					
+    padding: 5px 10px;				
+    font: 14px sans-serif;		
+    background: lavender;	
+    border: 0px;		
+    pointer-events: none;
 }
