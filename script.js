@@ -11,7 +11,7 @@ const callback = function(err, data) {
     console.log(dataset); 
     const w = 1200
     const h = 750;
-    const padding = 60;
+    const padding = 100;
     
     for(let i = 0; i < dataset.length; i++) {
       dates.push(dataset[i].year)
@@ -92,6 +92,75 @@ const callback = function(err, data) {
           return "red"
         }
       })
+     .on("mouseover", function(d) {
+          tooltip
+            .transition()
+            .duration(100)
+            .style("opacity", 0.85);
+          tooltip
+            .html("<p>" + d[4] + "</p><p><strong>Year:</strong> " + d[0] + "</p><p><strong>Time:</strong> " + d[3] + "</p><p>" + d[2] + "</p>")
+            .style("left", d3.event.pageX + 15 + "px")
+            .style("top", d3.event.pageY + 15 + "px");
+          tooltip.attr("data-year", d[0]);
+        })
+        .on("mouseout", function(d) {
+          tooltip
+            .transition()
+            .duration(100)
+            .style("opacity", 0);
+        });
+    
+    const legend = svg.append("g")
+                    .attr("id", "legend");
+      
+    legend.append("rect")
+      .attr("x", padding)
+      .attr("y", h - 10)
+      .attr("width", 10)
+      .attr("height", 10)
+      .attr("fill", "blue")
+      
+    legend.append("text")
+      .text("less than -0.2 variance")
+      .attr("x", padding + 20)
+      .attr("y", (h))
+    
+    legend.append("rect")
+      .attr("x", padding)
+      .attr("y", (h - 25))
+      .attr("width", 10)
+      .attr("height", 10)
+      .attr("fill", "skyblue")
+      
+    legend.append("text")
+      .text("between 0 and -0.1 variance")
+      .attr("x", padding + 20)
+      .attr("y", (h - 15))
+    
+    legend.append("rect")
+      .attr("x", padding)
+      .attr("y", (h - 40))
+      .attr("width", 10)
+      .attr("height", 10)
+      .attr("fill", "yellow")
+      
+    legend.append("text")
+      .text("between 0 and 0.1 variance")
+      .attr("x", padding + 20)
+      .attr("y", (h - 30))
+    
+    legend.append("rect")
+      .attr("x", padding)
+      .attr("y", (h - 55))
+      .attr("width", 10)
+      .attr("height", 10)
+      .attr("fill", "red")
+      
+    legend.append("text")
+      .text("greater than 0.1 variance")
+      .attr("x", padding + 20)
+      .attr("y", (h - 45))
+    
     
   }
 }
