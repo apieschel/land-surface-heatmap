@@ -17,7 +17,7 @@ const callback = function(err, data) {
       dates.push(dataset[i].year)
     }
     
-    //console.log(dates);
+    console.log(dates);
     let datesScale = dates.filter((d) => d % 10 === 0);
     //console.log(datesScale);
     
@@ -25,8 +25,7 @@ const callback = function(err, data) {
     const maxX = d3.max(dates, (d) => d);
     const xScale = d3.scaleBand()
                       .domain(dates)
-                      .rangeRound([padding, w - padding])
-                      .padding(0);
+                      .rangeRound([0, w])
     const xAxis = d3.axisBottom(xScale)
                       .tickValues(datesScale)
                       .tickFormat(d3.format("d"));
@@ -60,7 +59,7 @@ const callback = function(err, data) {
       .text("1753 - 2015: base temperature 8.66℃");
     
     svg.append("g")
-        .attr("transform", "translate(0," + (h - padding) + ")")
+        .attr("transform", "translate(" + padding + "," + (h - padding) + ")")
         .attr("id", "x-axis")
         .call(xAxis);
     
