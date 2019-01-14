@@ -12,7 +12,6 @@ h1, h2 {
 .container {
   display: flex; 
   justify-content:center;
-  margin-top: 20px;
 }
 
 .dot:hover {

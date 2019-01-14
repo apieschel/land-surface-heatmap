@@ -25,7 +25,7 @@ const callback = function(err, data) {
     const maxX = d3.max(dates, (d) => d);
     const xScale = d3.scaleBand()
                       .domain(dates)
-                      .range([padding, w - padding])
+                      .range([0, w])
                       .padding(0);
     const xAxis = d3.axisBottom(xScale)
                       .tickValues(datesScale)
@@ -34,30 +34,33 @@ const callback = function(err, data) {
     
     const yScale = d3.scaleBand()
                       .domain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-                      .range([padding, h - padding])
+                      .range([0, h - padding])
     
     const yAxis = d3.axisLeft(yScale);
     yAxis.tickValues(yScale.domain())
          .tickFormat((d) => months[d - 1]);
+    
+     d3.select(".heading")
+      .append("h1")
+      .attr("id", "title")
+      .text("Monthly Global Land-Surface Temperature");
+    
+    d3.select(".heading")
+      .append("h2")
+      .attr("id", "description")
+      .text("1753 - 2015: base temperature 8.66℃");
     
     const svg = d3.select(".container")
       .append("svg")
       .attr("width", w)
       .attr("height", h);
     
-     d3.select("body")
-      .append("h1")
-      .attr("id", "title")
-      .text("Monthly Global Land-Surface Temperature");
-    
-    d3.select("body")
-      .append("h2")
-      .text("1753 - 2015: base temperature 8.66℃");
-    
-    d3.select("body")
+    const tooltip = d3
+      .select("body")
       .append("div")
-      .attr("id", "description")
-      .text("1753 - 2015: base temperature 8.66℃");
+      .attr("class", "tooltip")
+      .attr("id", "tooltip")
+      .style("opacity", 0)
     
     svg.append("g")
         .attr("transform", "translate(0," + (h - padding) + ")")
@@ -98,10 +101,10 @@ const callback = function(err, data) {
             .duration(100)
             .style("opacity", 0.85);
           tooltip
-            .html("<p>" + d[4] + "</p><p><strong>Year:</strong> " + d[0] + "</p><p><strong>Time:</strong> " + d[3] + "</p><p>" + d[2] + "</p>")
+            .html("<p><strong>Month:</strong> " + months[d.month - 1] + "</p><p><strong>Year: </strong> " + d.year + "</p><p><strong>Variance:</strong> " + d.variance + "</p>")
             .style("left", d3.event.pageX + 15 + "px")
             .style("top", d3.event.pageY + 15 + "px");
-          tooltip.attr("data-year", d[0]);
+          tooltip.attr("data-year", d.year);
         })
         .on("mouseout", function(d) {
           tooltip
@@ -115,7 +118,7 @@ const callback = function(err, data) {
       
     legend.append("rect")
       .attr("x", padding)
-      .attr("y", h - 10)
+      .attr("y", h - 11)
       .attr("width", 10)
       .attr("height", 10)
       .attr("fill", "blue")
@@ -127,7 +130,7 @@ const callback = function(err, data) {
     
     legend.append("rect")
       .attr("x", padding)
-      .attr("y", (h - 25))
+      .attr("y", (h - 26))
       .attr("width", 10)
       .attr("height", 10)
       .attr("fill", "skyblue")
@@ -139,7 +142,7 @@ const callback = function(err, data) {
     
     legend.append("rect")
       .attr("x", padding)
-      .attr("y", (h - 40))
+      .attr("y", (h - 41))
       .attr("width", 10)
       .attr("height", 10)
       .attr("fill", "yellow")
@@ -151,7 +154,7 @@ const callback = function(err, data) {
     
     legend.append("rect")
       .attr("x", padding)
-      .attr("y", (h - 55))
+      .attr("y", (h - 56))
       .attr("width", 10)
       .attr("height", 10)
       .attr("fill", "red")
