@@ -31,7 +31,7 @@ const callback = function(err, data) {
    
     
     const yScale = d3.scaleBand()
-                      .domain(months)
+                      .domain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
                       .range([padding, h - padding])
     
     const yAxis = d3.axisLeft(yScale);
@@ -72,8 +72,8 @@ const callback = function(err, data) {
       .attr("class", "cell")
       .attr("x", (d, i) => xScale(d.year))
       .attr("y", (d) => yScale(d.month))
-      .attr("width", 10)
-      .attr("height", 10)
+      .attr("width", xScale.bandwidth())
+      .attr("height", yScale.bandwidth())
       .attr("data-date", (d) => d)
       .attr("data-gdp", (d) => d)
       .attr("fill", "purple")
