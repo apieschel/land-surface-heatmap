@@ -77,9 +77,20 @@ const callback = function(err, data) {
       .attr("y", (d) => yScale(d.month))
       .attr("width", xScale.bandwidth())
       .attr("height", yScale.bandwidth())
-      .attr("data-date", (d) => d)
-      .attr("data-gdp", (d) => d)
-      .attr("fill", "purple")
+      .attr("data-month", (d) => d.month - 1)
+      .attr("data-year", (d) => d.year)
+      .attr("data-temp", (d) => d.variance)
+      .attr("fill", (d) => {
+        if(d.variance < -2) {
+          return "blue"
+        } else if(0 < d.variance < -1) {
+          return "grey"
+        } else if(0 < d.variance < 1) {
+          return "yellow"
+        } else {
+          return "red"
+        }
+      })
     
   }
 }
