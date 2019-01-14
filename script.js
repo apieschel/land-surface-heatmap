@@ -28,16 +28,8 @@ const callback = function(err, data) {
                       .range([padding, w - padding])
                       .padding(0);
     const xAxis = d3.axisBottom(xScale)
-                      .scale(xScale)
-        .tickValues(xScale.domain().filter(function(year){
-          //set ticks to years divisible by 10
-          return year%10 === 0;
-        }))
-        .tickFormat(function(year){
-          var date = new Date(0);
-          date.setUTCFullYear(year)
-          return d3.time.format.utc("%Y")(date);
-        })
+                      .tickValues(datesScale)
+                      .tickFormat(d3.format("Y"));
    
     
     const yScale = d3.scaleBand()
@@ -82,7 +74,7 @@ const callback = function(err, data) {
       .enter()
       .append("rect")
       .attr("class", "cell")
-      .attr("x", (d) => xScale(d.year))
+      .attr("x", (d) => xScale(d.year) + 1)
       .attr("y", (d) => yScale(d.month))
       .attr("width", xScale.bandwidth())
       .attr("height", yScale.bandwidth())
