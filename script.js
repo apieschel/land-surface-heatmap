@@ -7,7 +7,7 @@ const callback = function(err, data) {
   } else {
     let dataset = data.monthlyVariance;
     let dates = [];
-    console.log(dataset); 
+    //console.log(dataset); 
     const w = 1200
     const h = 750;
     const padding = 60;
@@ -16,12 +16,14 @@ const callback = function(err, data) {
       dates.push(dataset[i].year)
     }
     
-    console.log(dates);
+    //console.log(dates);
+    let datesScale = dates.filter((d) => d % 10 === 0);
+    console.log(datesScale);
     
     const minX = d3.min(dates, (d) => d);
     const maxX = d3.max(dates, (d) => d);
     const xScale = d3.scaleBand()
-                      .domain(dates)
+                      .domain(datesScale)
                       .range([padding, w - padding])
     
     const xAxis = d3.axisBottom(xScale);
