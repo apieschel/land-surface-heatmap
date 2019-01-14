@@ -25,7 +25,8 @@ const callback = function(err, data) {
     const maxX = d3.max(dates, (d) => d);
     const xScale = d3.scaleBand()
                       .domain(dates)
-                      .range([padding, w - padding]);
+                      .rangeRound([padding, w - padding])
+                      .padding(0);
     const xAxis = d3.axisBottom(xScale)
                       .tickValues(datesScale)
                       .tickFormat(d3.format("d"));
@@ -73,7 +74,7 @@ const callback = function(err, data) {
       .enter()
       .append("rect")
       .attr("class", "cell")
-      .attr("x", (d) => xScale(d.year) + 1)
+      .attr("x", (d) => xScale(d.year))
       .attr("y", (d) => yScale(d.month))
       .attr("width", xScale.bandwidth())
       .attr("height", yScale.bandwidth())
