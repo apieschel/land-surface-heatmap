@@ -8,7 +8,7 @@ const callback = function(err, data) {
     let dataset = data.monthlyVariance;
     let dates = [];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    //console.log(dataset); 
+    console.log(dataset); 
     const w = 1200
     const h = 750;
     const padding = 60;
@@ -19,16 +19,22 @@ const callback = function(err, data) {
     
     //console.log(dates);
     let datesScale = dates.filter((d) => d % 10 === 0);
-    console.log(datesScale);
+    //console.log(datesScale);
     
     const minX = d3.min(dates, (d) => d);
     const maxX = d3.max(dates, (d) => d);
     const xScale = d3.scaleBand()
                       .domain(datesScale)
-                      .range([padding, w - padding])
-    
+                      .range([padding, w - padding]);
     const xAxis = d3.axisBottom(xScale);
     xAxis.tickFormat(d3.format("d"));
+   
+    
+    const yScale = d3.scaleBand()
+                      .domain(months)
+                      .range([padding, h - padding])
+    
+    const yAxis = d3.axisLeft(yScale);
     
     const svg = d3.select(".container")
       .append("svg")
@@ -53,6 +59,24 @@ const callback = function(err, data) {
         .attr("transform", "translate(0," + (h - padding) + ")")
         .attr("id", "x-axis")
         .call(xAxis);
+    
+    svg.append("g")
+        .attr("transform", "translate(" + padding + ", 0)")
+        .attr("id", "y-axis")
+        .call(yAxis);
+    
+    svg.selectAll("rect")
+      .data(dataset)
+      .enter()
+      .append("rect")
+      .attr("class", "cell")
+      .attr("x", (d, i) => xScale(d.year))
+      .attr("y", (d) => yScale(d.month))
+      .attr("width", 10)
+      .attr("height", 10)
+      .attr("data-date", (d) => d)
+      .attr("data-gdp", (d) => d)
+      .attr("fill", "purple")
     
   }
 }
