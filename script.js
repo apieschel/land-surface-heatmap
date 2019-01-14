@@ -7,6 +7,7 @@ const callback = function(err, data) {
   } else {
     let dataset = data.monthlyVariance;
     let dates = [];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     //console.log(dataset); 
     const w = 1200
     const h = 750;
