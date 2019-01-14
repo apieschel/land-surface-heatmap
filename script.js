@@ -20,9 +20,9 @@ const callback = function(err, data) {
     
     const minX = d3.min(dates, (d) => d);
     const maxX = d3.max(dates, (d) => d);
-    const xScale = d3.scale.ordinal()
-                      .domain([minX, maxX])
-                      .rangeRoundBands([padding, w - padding], 0, 0);
+    const xScale = d3.scaleBand()
+                      .domain(dates)
+                      .range([padding, w - padding])
     
     const xAxis = d3.axisBottom(xScale);
     xAxis.tickFormat(d3.format("d"));
