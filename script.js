@@ -8,7 +8,7 @@ const callback = function(err, data) {
     let dataset = data.monthlyVariance;
     let dates = [];
     console.log(dataset); 
-    const w = 2000
+    const w = 1200
     const h = 750;
     const padding = 60;
     
@@ -20,9 +20,9 @@ const callback = function(err, data) {
     
     const minX = d3.min(dates, (d) => d);
     const maxX = d3.max(dates, (d) => d);
-    const xScale = d3.scaleLinear()
+    const xScale = d3.scale.ordinal()
                       .domain([minX, maxX])
-                      .range([padding, w - padding]);
+                      .rangeRoundBands([padding, w - padding], 0, 0);
     
     const xAxis = d3.axisBottom(xScale);
     xAxis.tickFormat(d3.format("d"));
