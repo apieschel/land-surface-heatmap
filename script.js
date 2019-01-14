@@ -73,7 +73,7 @@ const callback = function(err, data) {
       .enter()
       .append("rect")
       .attr("class", "cell")
-      .attr("x", (d, i) => xScale(d.year))
+      .attr("x", (d) => xScale(d.year) + 1)
       .attr("y", (d) => yScale(d.month))
       .attr("width", xScale.bandwidth())
       .attr("height", yScale.bandwidth())
@@ -83,9 +83,9 @@ const callback = function(err, data) {
       .attr("fill", (d) => {
         if(d.variance < -2) {
           return "blue"
-        } else if(0 < d.variance < -1) {
-          return "grey"
-        } else if(0 < d.variance < 1) {
+        } else if(d.variance > -1 && d.variance < 0) {
+          return "skyblue"
+        } else if(d.variance > 0 && d.variance < 1) {
           return "yellow"
         } else {
           return "red"
