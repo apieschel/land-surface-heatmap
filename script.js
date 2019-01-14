@@ -24,10 +24,11 @@ const callback = function(err, data) {
     const minX = d3.min(dates, (d) => d);
     const maxX = d3.max(dates, (d) => d);
     const xScale = d3.scaleBand()
-                      .domain(datesScale)
+                      .domain(dates)
                       .range([padding, w - padding]);
-    const xAxis = d3.axisBottom(xScale);
-    xAxis.tickFormat(d3.format("d"));
+    const xAxis = d3.axisBottom(xScale)
+                      .tickValues(datesScale)
+                      .tickFormat(d3.format("d"));
    
     
     const yScale = d3.scaleBand()
@@ -35,6 +36,8 @@ const callback = function(err, data) {
                       .range([padding, h - padding])
     
     const yAxis = d3.axisLeft(yScale);
+    yAxis.tickValues(yScale.domain())
+         .tickFormat((d) => months[d - 1]);
     
     const svg = d3.select(".container")
       .append("svg")
