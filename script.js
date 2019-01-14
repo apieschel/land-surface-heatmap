@@ -25,10 +25,19 @@ const callback = function(err, data) {
     const maxX = d3.max(dates, (d) => d);
     const xScale = d3.scaleBand()
                       .domain(dates)
-                      .rangeRound([0, w])
+                      .range([padding, w - padding])
+                      .padding(0);
     const xAxis = d3.axisBottom(xScale)
-                      .tickValues(datesScale)
-                      .tickFormat(d3.format("d"));
+                      .scale(xScale)
+        .tickValues(xScale.domain().filter(function(year){
+          //set ticks to years divisible by 10
+          return year%10 === 0;
+        }))
+        .tickFormat(function(year){
+          var date = new Date(0);
+          date.setUTCFullYear(year)
+          return d3.time.format.utc("%Y")(date);
+        })
    
     
     const yScale = d3.scaleBand()
@@ -59,7 +68,7 @@ const callback = function(err, data) {
       .text("1753 - 2015: base temperature 8.66℃");
     
     svg.append("g")
-        .attr("transform", "translate(" + padding + "," + (h - padding) + ")")
+        .attr("transform", "translate(0," + (h - padding) + ")")
         .attr("id", "x-axis")
         .call(xAxis);
     
