@@ -5,8 +5,32 @@ const callback = function(err, data) {
   if (err !== null) {
     alert('Something went wrong: ' + err);
   } else {
-    console.log(data); 
+    let dataset = data.monthlyVariance;
+    let dates = [];
+    console.log(dataset); 
+    const w = 2000
+    const h = 750;
+    const padding = 60;
     
+    for(let i = 0; i < dataset.length; i++) {
+      dates.push(dataset[i].year)
+    }
+    
+    console.log(dates);
+    
+    const minX = d3.min(dates, (d) => d);
+    const maxX = d3.max(dates, (d) => d);
+    const xScale = d3.scaleLinear()
+                      .domain([minX, maxX])
+                      .range([padding, w - padding]);
+    
+    const xAxis = d3.axisBottom(xScale);
+    xAxis.tickFormat(d3.format("d"));
+    
+    const svg = d3.select(".container")
+      .append("svg")
+      .attr("width", w)
+      .attr("height", h);
     
      d3.select("body")
       .append("h1")
@@ -21,6 +45,11 @@ const callback = function(err, data) {
       .append("div")
       .attr("id", "description")
       .text("1753 - 2015: base temperature 8.66℃");
+    
+    svg.append("g")
+        .attr("transform", "translate(0," + (h - padding) + ")")
+        .attr("id", "x-axis")
+        .call(xAxis);
     
   }
 }
