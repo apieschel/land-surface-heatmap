@@ -11,7 +11,7 @@ const callback = function(err, data) {
     console.log(dataset); 
     const w = 1200
     const h = 750;
-    const padding = 100;
+    const padding = 90;
     
     for(let i = 0; i < dataset.length; i++) {
       dates.push(dataset[i].year)
@@ -19,18 +19,21 @@ const callback = function(err, data) {
     
     console.log(dates);
     let datesScale = dates.filter((d) => d % 10 === 0);
-    //console.log(datesScale);
+    datesScale = datesScale.filter(function(item, pos, self) {
+      return self.indexOf(item) == pos;
+    })
+    console.log(datesScale);
     
     const minX = d3.min(dates, (d) => d);
     const maxX = d3.max(dates, (d) => d);
     const xScale = d3.scaleBand()
                       .domain(dates)
-                      .range([0, w])
+                      .range([padding, w - padding])
                       .padding(0);
     const xAxis = d3.axisBottom(xScale)
                       .tickValues(datesScale)
-                      .tickFormat(d3.format("Y"));
-   
+                      .tickFormat(d3.format("Y"))
+                      .tickSize(5);
     
     const yScale = d3.scaleBand()
                       .domain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
@@ -85,7 +88,7 @@ const callback = function(err, data) {
       .attr("data-year", (d) => d.year)
       .attr("data-temp", (d) => d.variance)
       .attr("fill", (d) => {
-        if(d.variance < -2) {
+        if(d.variance < -1) {
           return "blue"
         } else if(d.variance > -1 && d.variance < 0) {
           return "skyblue"
@@ -124,7 +127,7 @@ const callback = function(err, data) {
       .attr("fill", "blue")
       
     legend.append("text")
-      .text("less than -0.2 variance")
+      .text("less than -0.1 variance")
       .attr("x", padding + 20)
       .attr("y", (h))
     

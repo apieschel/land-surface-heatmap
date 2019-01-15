@@ -14,8 +14,8 @@ h1, h2 {
   justify-content:center;
 }
 
-.dot:hover {
-  fill: yellow;
+.cell:hover {
+  fill: green;
 }
 
 .tooltip {
@@ -27,4 +27,8 @@ h1, h2 {
     background: lavender;	
     border: 0px;		
     pointer-events: none;
+}
+
+text {
+  font-size: 14px;
 }
