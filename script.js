@@ -10,7 +10,7 @@ const callback = function(err, data) {
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     console.log(dataset); 
     const w = 1200
-    const h = 750;
+    const h = 500;
     const padding = 90;
     
     for(let i = 0; i < dataset.length; i++) {
