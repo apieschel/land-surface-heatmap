@@ -8,7 +8,6 @@ const callback = function(err, data) {
     let dataset = data.monthlyVariance;
     let dates = [];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    console.log(dataset); 
     const w = 1200
     const h = 500;
     const padding = 90;
@@ -17,12 +16,10 @@ const callback = function(err, data) {
       dates.push(dataset[i].year)
     }
     
-    console.log(dates);
     let datesScale = dates.filter((d) => d % 10 === 0);
     datesScale = datesScale.filter(function(item, pos, self) {
       return self.indexOf(item) == pos;
     })
-    console.log(datesScale);
     
     const minX = d3.min(dates, (d) => d);
     const maxX = d3.max(dates, (d) => d);
@@ -46,12 +43,16 @@ const callback = function(err, data) {
      d3.select(".heading")
       .append("h1")
       .attr("id", "title")
-      .text("Monthly Global Land-Surface Temperature");
+      .text("Monthly Global Land-Surface Temperature (1753 - 2015)");
     
     d3.select(".heading")
       .append("h2")
       .attr("id", "description")
-      .text("1753 - 2015: base temperature 8.66℃");
+      .text("Base Temperature: 8.66℃");
+    
+    d3.select(".heading")
+      .append("h3")
+      .text("(a reflection of the planet's warming trends since 1753)");
     
     const svg = d3.select(".container")
       .append("svg")
@@ -127,7 +128,7 @@ const callback = function(err, data) {
       .attr("fill", "darkcyan")
       
     legend.append("text")
-      .text("less than -0.1 variance")
+      .text("More than -0.1 variance from base temperature")
       .attr("x", padding + 20)
       .attr("y", (h))
     
@@ -139,7 +140,7 @@ const callback = function(err, data) {
       .attr("fill", "lightgrey")
       
     legend.append("text")
-      .text("between 0 and -0.1 variance")
+      .text("Between 0 and -0.1 variance from base temperature")
       .attr("x", padding + 20)
       .attr("y", (h - 15))
     
@@ -151,7 +152,7 @@ const callback = function(err, data) {
       .attr("fill", "salmon")
       
     legend.append("text")
-      .text("between 0 and 0.1 variance")
+      .text("Between 0 and 0.1 variance from base temperature")
       .attr("x", padding + 20)
       .attr("y", (h - 30))
     
@@ -163,7 +164,7 @@ const callback = function(err, data) {
       .attr("fill", "maroon")
       
     legend.append("text")
-      .text("greater than 0.1 variance")
+      .text("More than 0.1 variance from base temperature")
       .attr("x", padding + 20)
       .attr("y", (h - 45))
     
