@@ -1,6 +1,7 @@
 /* CSS files add styling rules to your content */
 
 body {
+  background: ghostwhite;
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
   margin: 2em;
 }
@@ -15,7 +16,7 @@ h1, h2 {
 }
 
 .cell:hover {
-  fill: green;
+  fill: aqua;
 }
 
 .tooltip {
@@ -24,8 +25,8 @@ h1, h2 {
     height: auto;					
     padding: 5px 10px;				
     font: 14px sans-serif;		
-    background: lavender;	
-    border: 0px;		
+    background: ghostwhite;
+    border: 1px solid black;		
     pointer-events: none;
 }
 

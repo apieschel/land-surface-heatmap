@@ -89,13 +89,13 @@ const callback = function(err, data) {
       .attr("data-temp", (d) => d.variance)
       .attr("fill", (d) => {
         if(d.variance < -1) {
-          return "blue"
+          return "darkcyan"
         } else if(d.variance > -1 && d.variance < 0) {
-          return "skyblue"
+          return "lightgrey"
         } else if(d.variance > 0 && d.variance < 1) {
-          return "yellow"
+          return "salmon"
         } else {
-          return "red"
+          return "maroon"
         }
       })
      .on("mouseover", function(d) {
@@ -124,7 +124,7 @@ const callback = function(err, data) {
       .attr("y", h - 11)
       .attr("width", 10)
       .attr("height", 10)
-      .attr("fill", "blue")
+      .attr("fill", "darkcyan")
       
     legend.append("text")
       .text("less than -0.1 variance")
@@ -136,7 +136,7 @@ const callback = function(err, data) {
       .attr("y", (h - 26))
       .attr("width", 10)
       .attr("height", 10)
-      .attr("fill", "skyblue")
+      .attr("fill", "lightgrey")
       
     legend.append("text")
       .text("between 0 and -0.1 variance")
@@ -148,7 +148,7 @@ const callback = function(err, data) {
       .attr("y", (h - 41))
       .attr("width", 10)
       .attr("height", 10)
-      .attr("fill", "yellow")
+      .attr("fill", "salmon")
       
     legend.append("text")
       .text("between 0 and 0.1 variance")
@@ -160,7 +160,7 @@ const callback = function(err, data) {
       .attr("y", (h - 56))
       .attr("width", 10)
       .attr("height", 10)
-      .attr("fill", "red")
+      .attr("fill", "maroon")
       
     legend.append("text")
       .text("greater than 0.1 variance")
