@@ -8,12 +8,12 @@ const callback = function(err, data) {
     let dataset = data.monthlyVariance;
     let dates = [];
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const w = 1200
+    const w = 1200;
     const h = 500;
     const padding = 90;
     
     for(let i = 0; i < dataset.length; i++) {
-      dates.push(dataset[i].year)
+      dates.push(dataset[i].year);
     }
     
     let datesScale = dates.filter((d) => d % 10 === 0);
@@ -23,10 +23,12 @@ const callback = function(err, data) {
     
     const minX = d3.min(dates, (d) => d);
     const maxX = d3.max(dates, (d) => d);
+    
     const xScale = d3.scaleBand()
                       .domain(dates)
                       .range([padding, w - padding])
                       .padding(0);
+    
     const xAxis = d3.axisBottom(xScale)
                       .tickValues(datesScale)
                       .tickFormat(d3.format("Y"))
@@ -34,9 +36,10 @@ const callback = function(err, data) {
     
     const yScale = d3.scaleBand()
                       .domain([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-                      .range([0, h - padding])
+                      .range([0, h - padding]);
     
     const yAxis = d3.axisLeft(yScale);
+    
     yAxis.tickValues(yScale.domain())
          .tickFormat((d) => months[d - 1]);
     
@@ -64,7 +67,7 @@ const callback = function(err, data) {
       .append("div")
       .attr("class", "tooltip")
       .attr("id", "tooltip")
-      .style("opacity", 0)
+      .style("opacity", 0);
     
     svg.append("g")
         .attr("transform", "translate(0," + (h - padding) + ")")
@@ -125,52 +128,51 @@ const callback = function(err, data) {
       .attr("y", h - 11)
       .attr("width", 10)
       .attr("height", 10)
-      .attr("fill", "darkcyan")
+      .attr("fill", "darkcyan");
       
     legend.append("text")
       .text("More than -0.1 variance from base temperature")
       .attr("x", padding + 20)
-      .attr("y", (h))
+      .attr("y", (h));
     
     legend.append("rect")
       .attr("x", padding)
       .attr("y", (h - 26))
       .attr("width", 10)
       .attr("height", 10)
-      .attr("fill", "lightgrey")
+      .attr("fill", "lightgrey");
       
     legend.append("text")
       .text("Between 0 and -0.1 variance from base temperature")
       .attr("x", padding + 20)
-      .attr("y", (h - 15))
+      .attr("y", (h - 15));
     
     legend.append("rect")
       .attr("x", padding)
       .attr("y", (h - 41))
       .attr("width", 10)
       .attr("height", 10)
-      .attr("fill", "salmon")
+      .attr("fill", "salmon");
       
     legend.append("text")
       .text("Between 0 and 0.1 variance from base temperature")
       .attr("x", padding + 20)
-      .attr("y", (h - 30))
+      .attr("y", (h - 30));
     
     legend.append("rect")
       .attr("x", padding)
       .attr("y", (h - 56))
       .attr("width", 10)
       .attr("height", 10)
-      .attr("fill", "maroon")
+      .attr("fill", "maroon");
       
     legend.append("text")
       .text("More than 0.1 variance from base temperature")
       .attr("x", padding + 20)
-      .attr("y", (h - 45))
-    
-    
+      .attr("y", (h - 45));  
   }
 }
+
 xhr.open('GET', 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json', true);
 xhr.responseType = 'json';
 xhr.onload = function() {
